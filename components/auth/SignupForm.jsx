@@ -82,7 +82,7 @@ export default function SignupForm() {
           minLength={2}
           maxLength={60}
           value={form.name}
-          onChange={(event) => setForm({ ...form, name: event.target.value })}
+          onChange={(event) => setForm(prevForm => ({ ...prevForm, name: event.target.value }))}
           className="input"
         />
       </div>
@@ -94,7 +94,7 @@ export default function SignupForm() {
           autoComplete="email"
           required
           value={form.email}
-          onChange={(event) => setForm({ ...form, email: event.target.value })}
+          onChange={(event) => setForm(prevForm => ({ ...prevForm, email: event.target.value }))}
           className="input"
         />
       </div>
@@ -109,7 +109,7 @@ export default function SignupForm() {
             minLength={10}
             maxLength={128}
             value={form.password}
-            onChange={(event) => setForm({ ...form, password: event.target.value })}
+            onChange={(event) => setForm(prevForm => ({ ...prevForm, password: event.target.value }))}
             className="input"
           />
         </div>
@@ -123,7 +123,7 @@ export default function SignupForm() {
             minLength={10}
             maxLength={128}
             value={form.confirm}
-            onChange={(event) => setForm({ ...form, confirm: event.target.value })}
+            onChange={(event) => setForm(prevForm => ({ ...prevForm, confirm: event.target.value }))}
             className="input"
           />
         </div>

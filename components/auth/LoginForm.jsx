@@ -55,7 +55,7 @@ export default function LoginForm() {
           autoComplete="username"
           required
           value={form.identifier}
-          onChange={(event) => setForm({ ...form, identifier: event.target.value })}
+          onChange={(event) => setForm(prevForm => ({ ...prevForm, identifier: event.target.value }))}
           className="input"
         />
       </div>
@@ -73,7 +73,7 @@ export default function LoginForm() {
           autoComplete="current-password"
           required
           value={form.password}
-          onChange={(event) => setForm({ ...form, password: event.target.value })}
+          onChange={(event) => setForm(prevForm => ({ ...prevForm, password: event.target.value }))}
           className="input"
         />
       </div>
