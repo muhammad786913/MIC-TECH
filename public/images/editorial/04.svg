@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img">
+  <defs>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer>
+  </filter></defs>
+  <rect width="1600" height="1000" fill="#F5F2EA"/>
+  <g>
+    <rect width="1600" height="1000" fill="#F5F2EA"/>
+    <path d="M-40 330 C 360 180, 700 520, 1080 340 S 1500 520, 1660 380" fill="none" stroke="#151515" stroke-width="2" opacity="0.35"/><path d="M-40 420 C 360 270, 700 600, 1080 420 S 1500 590, 1660 450" fill="none" stroke="#151515" stroke-width="2" opacity="0.35"/><path d="M-40 510 C 360 360, 700 680, 1080 500 S 1500 660, 1660 520" fill="none" stroke="#C5A24B" stroke-width="12" opacity="1"/><path d="M-40 600 C 360 450, 700 760, 1080 580 S 1500 730, 1660 590" fill="none" stroke="#151515" stroke-width="2" opacity="0.35"/><path d="M-40 690 C 360 540, 700 840, 1080 660 S 1500 800, 1660 660" fill="none" stroke="#151515" stroke-width="2" opacity="0.35"/><path d="M-40 780 C 360 630, 700 920, 1080 740 S 1500 870, 1660 730" fill="none" stroke="#151515" stroke-width="2" opacity="0.35"/>
+    <rect x="1120" y="700" width="360" height="160" fill="#151515"/>
+  </g>
+  <rect width="1600" height="1000" filter="url(#grain)" opacity=".8"/>
+  <text x="1540" y="955" text-anchor="end" font-family="Arial, sans-serif" font-size="22" letter-spacing="7" fill="#C5A24B" opacity=".9">MIC TECH</text>
+</svg>

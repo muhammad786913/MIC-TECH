@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img">
+  <defs>
+  <filter id="grain" x="0" y="0" width="100%" height="100%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7" result="n"/>
+    <feColorMatrix in="n" type="saturate" values="0"/>
+    <feComponentTransfer><feFuncA type="linear" slope="0.055"/></feComponentTransfer>
+  </filter></defs>
+  <rect width="1600" height="1000" fill="#151515"/>
+  <g>
+    <circle cx="520" cy="560" r="330" fill="none" stroke="#C5A24B" stroke-width="2" opacity="0.9"/><circle cx="650" cy="578" r="278" fill="none" stroke="#C5A24B" stroke-width="10" opacity="0.77"/><circle cx="780" cy="596" r="226" fill="none" stroke="#C5A24B" stroke-width="2" opacity="0.64"/><circle cx="910" cy="614" r="174" fill="none" stroke="#C5A24B" stroke-width="2" opacity="0.51"/><circle cx="1040" cy="632" r="122" fill="none" stroke="#C5A24B" stroke-width="2" opacity="0.38"/>
+    <rect x="1040" y="130" width="420" height="740" fill="#F5F2EA"/>
+    <rect x="1080" y="180" width="340" height="2" fill="#C5A24B"/>
+    <rect x="1080" y="180" width="2" height="640" fill="#C5A24B" opacity=".5"/>
+  </g>
+  <rect width="1600" height="1000" filter="url(#grain)" opacity=".8"/>
+  <text x="1540" y="955" text-anchor="end" font-family="Arial, sans-serif" font-size="22" letter-spacing="7" fill="#C5A24B" opacity=".9">MIC TECH</text>
+</svg>

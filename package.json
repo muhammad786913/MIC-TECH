@@ -1,14 +1,23 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
+  "name": "mic-tech",
+  "version": "1.0.0",
   "private": true,
+  "description": "MIC TECH — premium digital news publishing platform and CMS",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "seed": "node scripts/seed.mjs",
+    "seed:reset": "node scripts/seed.mjs --reset",
+    "validate:cloudflare": "node scripts/validate-cloudflare.mjs"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1164.0",
+    "jose": "^6.2.15",
+    "mongodb": "^7.8.0",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0"
@@ -17,6 +26,7 @@
     "@tailwindcss/turbopack": "^4",
     "eslint": "^9",
     "eslint-config-next": "16.4.5",
-    "tailwindcss": "^4"
+    "tailwindcss": "^4",
+    "vitest": "^4.0.0"
   }
 }

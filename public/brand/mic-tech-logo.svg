@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="160" viewBox="0 0 720 160" role="img" aria-label="MIC TECH">
+  <rect width="160" height="160" rx="28" fill="#151515"/>
+  <rect x="14" y="14" width="132" height="132" rx="18" fill="none" stroke="#C5A24B" stroke-width="3"/>
+  <text x="80" y="114" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="104" fill="#C5A24B">M</text>
+  <rect x="46" y="126" width="68" height="4" fill="#C5A24B"/>
+  <text x="192" y="90" font-family="Arial, Helvetica, sans-serif" font-size="68" font-weight="700" letter-spacing="6" fill="#151515">MIC</text>
+  <text x="372" y="90" font-family="Georgia, 'Times New Roman', serif" font-size="68" letter-spacing="4" fill="#C5A24B">TECH</text>
+  <rect x="194" y="108" width="470" height="3" fill="#C5A24B"/>
+  <text x="194" y="138" font-family="Arial, Helvetica, sans-serif" font-size="15" letter-spacing="6" fill="#151515" opacity=".72">PRECISION · PERSPECTIVE · PAKISTAN</text>
+</svg>

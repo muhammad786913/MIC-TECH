@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="MIC TECH">
+  <rect width="160" height="160" rx="32" fill="#151515"/>
+  <rect x="8" y="8" width="144" height="144" rx="24" fill="none" stroke="#C5A24B" stroke-width="4"/>
+  <text x="80" y="104" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="96" fill="#C5A24B">M</text>
+</svg>

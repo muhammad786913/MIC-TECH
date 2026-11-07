@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="MIC TECH monogram">
+  <rect width="512" height="512" rx="96" fill="#151515"/>
+  <rect x="40" y="40" width="432" height="432" rx="64" fill="none" stroke="#C5A24B" stroke-width="6"/>
+  <text x="256" y="348" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="300" fill="#C5A24B">M</text>
+  <rect x="150" y="380" width="212" height="8" fill="#C5A24B"/>
+</svg>
