@@ -48,8 +48,7 @@ export default async function HomePage() {
   const categories = await safe(listCategories(), []);
 
   // Get trending articles
-  const trendingResult = await safe(getTrendingArticles(7, 8), []);
-  const trendingItems = trendingResult.items;
+  const trendingItems = await safe(getTrendingArticles(7, 8), []);
 
   // Get settings
   const settings = await safe(getSettings(), null);
