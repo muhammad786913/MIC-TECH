@@ -42,6 +42,7 @@ function securityHeaders(response, request) {
       "https://www.youtube.com",
       "https://www.youtube-nocookie.com",
       "https://player.vimeo.com",
+      "https://challenges.cloudflare.com",
     ],
     "worker-src": ["'self'", "blob:"],
     "object-src": ["'none'"],
