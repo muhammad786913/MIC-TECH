@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { Turnstile } from "@/components/ui/Turnstile";
 import { cloudflarePublic } from "@/lib/config";
@@ -9,15 +9,9 @@ export default function SignupForm() {
   const router = useRouter();
   const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", turnstileToken: "" });
   const [state, setState] = useState({ status: "idle", message: "", devLink: "" });
-  const formRef = useRef(form);
-  useEffect(() => {
-    formRef.current = form;
-  }, [form]);
   const onVerify = useCallback((token) => {
-    if (formRef.current) {
-      setForm({ ...formRef.current, turnstileToken: token });
-    }
-  }, []);
+      setForm(prevForm => ({ ...prevForm, turnstileToken: token }));
+    }, []);
 
   async function submit(event) {
     event.preventDefault();
