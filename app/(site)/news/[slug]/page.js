@@ -5,6 +5,8 @@ import { getArticleEngagement } from "@/lib/data/engagement";
 import { listArticleComments } from "@/lib/data/comments";
 import { getSettings } from "@/lib/data/settings";
 import { getCurrentUser } from "@/lib/auth/guards";
+import { cookies } from "next/headers";
+import { VISITOR_COOKIE } from "@/lib/config";
 import { articlePath, breadcrumbLd, buildMetadata, newsArticleLd } from "@/lib/seo";
 import { formatDate, readingTime } from "@/lib/utils";
 import ArticleBody from "@/components/public/ArticleBody";
@@ -61,13 +63,18 @@ export default async function ArticlePage({ params }) {
 
   const [related, engagement, comments, settings, user] = await Promise.all([
     getRelatedArticles(article, 3).catch(() => []),
-    getArticleEngagement(article._id, "").catch(() => ({
-      likes: 0,
-      bookmarks: 0,
-      comments: 0,
-      liked: false,
-      bookmarked: false,
-    })),
+    (async () => {
+      // For anonymous users, use the visitor cookie to track their likes/bookmarks.
+      const cookieStore = await cookies();
+      const visitorId = cookieStore.get(VISITOR_COOKIE)?.value || "";
+      return getArticleEngagement(article._id, visitorId).catch(() => ({
+        likes: 0,
+        bookmarks: 0,
+        comments: 0,
+        liked: false,
+        bookmarked: false,
+      }));
+    })(),
     listArticleComments(article._id).catch(() => []),
     getSettings().catch(() => null),
     getCurrentUser().catch(() => null),
