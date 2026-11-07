@@ -19,7 +19,6 @@ export default async function ArticlePreviewPage({ params }) {
   const { id } = await params;
   const article = await getArticleById(id).catch(() => null);
   if (!article || article.deletedAt) notFound();
-  const isRtl = article.language === "ur";
 
   return (
     <div className="mx-auto max-w-[920px]">
@@ -30,11 +29,11 @@ export default async function ArticlePreviewPage({ params }) {
 
       <article className="border border-line-dark bg-surface p-5 sm:p-9">
         <p className="kicker">{article.categoryName}</p>
-        <h1 dir={isRtl ? "rtl" : undefined} className={`mt-2 text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] ${isRtl ? "text-right font-urdu leading-[1.9]" : "headline"}`}>
+        <h1 className="mt-2 text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] headline">
           {article.title}
         </h1>
         {article.subtitle ? (
-          <p dir={isRtl ? "rtl" : undefined} className={`mt-3 font-body text-xl leading-relaxed text-ivory/70 ${isRtl ? "text-right font-urdu" : ""}`}>
+          <p className="mt-3 font-body text-xl leading-relaxed text-ivory/70">
             {article.subtitle}
           </p>
         ) : null}
@@ -46,7 +45,7 @@ export default async function ArticlePreviewPage({ params }) {
             <SmartImage src={article.coverImage.url} alt={article.coverImage.alt || article.title} fill sizes="920px" className="object-cover" />
           </div>
         ) : null}
-        <div dir={isRtl ? "rtl" : undefined} className={`mt-6 ${isRtl ? "text-right font-urdu leading-[2.2]" : ""}`}>
+        <div className="mt-6">
           <ArticleBody blocks={article.blocks || []} />
         </div>
       </article>

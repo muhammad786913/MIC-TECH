@@ -1,5 +1,5 @@
 import { createComment, listArticleComments } from "@/lib/data/comments";
-import { guardMutation, handleError, json, limit, readJson, requireApiUser } from "@/lib/api";
+import { guardMutation, fail, handleError, json, limit, readJson } from "@/lib/api";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
@@ -21,7 +21,7 @@ export async function POST(request) {
     limit(request, "comment", { max: 8, windowMs: 10 * 60_000 });
     const payload = await readJson(request);
 
-    // Bot protection via Cloudflare Turnstile (defense in depth — comments require auth).
+    // Bot protection via Cloudflare Turnstile.
     const turnstile = await verifyTurnstile(payload.turnstileToken, request);
     if (!turnstile.success) {
       return fail("Bot verification failed. Please try again.", 403, {
@@ -29,7 +29,13 @@ export async function POST(request) {
       });
     }
 
-    const user = await requireApiUser(request);
+    // Optional authentication — comments work without signing in.
+    let user = null;
+    try {
+      user = await requireApiUser(request);
+    } catch {
+      // User not signed in — allow anonymous comment.
+    }
     const result = await createComment({
       user,
       articleId: String(payload.articleId || ""),

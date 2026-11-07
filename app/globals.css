@@ -19,7 +19,6 @@
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-newsreader), Georgia, "Times New Roman", serif;
-  --font-urdu: var(--font-nastaliq), "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
 
   --animate-ticker: ticker 42s linear infinite;
   --animate-shimmer: shimmer 9s ease-in-out 2.5s infinite;
@@ -70,11 +69,6 @@
   :focus-visible {
     outline: 2px solid var(--color-gold);
     outline-offset: 3px;
-  }
-
-  [dir="rtl"] body,
-  .font-urdu {
-    font-family: var(--font-urdu);
   }
 
   img, video {

@@ -1,4 +1,4 @@
-﻿import { Inter, Newsreader, Noto_Nastaliq_Urdu, Playfair_Display } from "next/font/google";
+﻿import { Inter, Newsreader, Playfair_Display } from "next/font/google";
 import { SITE } from "@/lib/seo";
 import AnalyticsTracker from "@/components/public/AnalyticsTracker";
 import "./globals.css";
@@ -24,13 +24,6 @@ const newsreader = Newsreader({
   weight: ["400", "500", "600"],
 });
 
-const nastaliq = Noto_Nastaliq_Urdu({
-  subsets: ["arabic"],
-  variable: "--font-nastaliq",
-  display: "swap",
-  weight: ["400", "700"],
-});
-
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 
 export const metadata = {
@@ -47,7 +40,6 @@ export const metadata = {
   category: "news",
   alternates: {
     canonical: "/",
-    languages: { en: "/", ur: "/urdu" },
   },
   openGraph: {
     type: "website",
@@ -85,7 +77,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${playfair.variable} ${inter.variable} ${newsreader.variable} ${nastaliq.variable}`}
+      className={`${playfair.variable} ${inter.variable} ${newsreader.variable}`}
     >
       <body className="min-h-screen bg-paper text-ivory">
         <a

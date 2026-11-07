@@ -444,7 +444,7 @@ export default function ArticleEditor({ article = null, categories = [] }) {
                   <label htmlFor="article-language" className="field-label">Language</label>
                   <select id="article-language" className="input" value={meta.language} onChange={(event) => set({ language: event.target.value })}>
                     {LANGUAGES.map((language) => (
-                      <option key={language} value={language}>{language === "ur" ? "Urdu (Ø§Ø±Ø¯Ùˆ)" : "English"}</option>
+                      <option key={language} value={language}>language</option>
                     ))}
                   </select>
                 </div>
@@ -580,4 +580,5 @@ export default function ArticleEditor({ article = null, categories = [] }) {
     </div>
   );
 }
+
 

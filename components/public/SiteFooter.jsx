@@ -82,11 +82,6 @@ export default function SiteFooter({ settings, categories = [] }) {
                     </Link>
                   </li>
                 ))}
-                <li>
-                  <Link href="/urdu" className="font-urdu text-base transition-colors hover:text-gold">
-                    اردو
-                  </Link>
-                </li>
               </ul>
             </div>
             <div>

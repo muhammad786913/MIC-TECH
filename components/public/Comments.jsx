@@ -194,15 +194,8 @@ export default function Comments({ articleId, path = "/", initial = [], signedIn
         <p className="mt-4 border border-line-dark bg-surface-2/60 p-4 text-sm text-ivory/55">
           Comments are closed for this story.
         </p>
-      ) : signedIn ? (
-        <CommentForm articleId={articleId} onPosted={addComment} />
       ) : (
-        <p className="mt-4 border border-line-dark bg-surface-2/60 p-4 text-sm text-ivory/55">
-          <a href={`/login?next=${encodeURIComponent(path)}`} className="link-gold font-semibold">
-            Sign in
-          </a>{" "}
-          to join the discussion. Public reading remains free for everyone.
-        </p>
+        <CommentForm articleId={articleId} onPosted={addComment} />
       )}
 
       {notice ? (

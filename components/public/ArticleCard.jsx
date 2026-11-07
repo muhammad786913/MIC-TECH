@@ -56,13 +56,10 @@ export default function ArticleCard({
   if (!article) return null;
   const href = `/news/${article.slug}`;
   const image = article.coverImage?.url;
-  const rtl = article.language === "ur";
-  const dirProps = rtl ? { dir: "rtl", lang: "ur" } : {};
-  const headlineFont = rtl ? "font-urdu" : "";
 
   if (variant === "lead") {
     return (
-      <article {...dirProps} className={cn("group relative isolate overflow-hidden bg-ink", rtl && "font-urdu", className)}>
+      <article className={cn("group relative isolate overflow-hidden bg-ink", className)}>
         <div className="relative aspect-[4/3] w-full sm:aspect-[16/10] lg:aspect-auto lg:h-full lg:min-h-[540px]">
           <SmartImage
             src={image}
@@ -85,7 +82,7 @@ export default function ArticleCard({
               </span>
             )}
           </div>
-          <h2 className={cn("headline max-w-3xl text-[clamp(1.75rem,4.2vw,3.5rem)] text-ivory", headlineFont)}>
+          <h2 className={cn("headline max-w-3xl text-[clamp(1.75rem,4.2vw,3.5rem)] text-ivory")}>
             <Link href={href}>{article.title}</Link>
           </h2>
           {article.subtitle && (
@@ -101,7 +98,7 @@ export default function ArticleCard({
 
   if (variant === "overlay") {
     return (
-      <article {...dirProps} className={cn("group relative isolate overflow-hidden bg-ink", rtl && "font-urdu", className)}>
+      <article className={cn("group relative isolate overflow-hidden bg-ink", className)}>
         <div className="relative aspect-[16/10] w-full">
           <SmartImage
             src={image}
@@ -114,7 +111,7 @@ export default function ArticleCard({
         </div>
         <div className="absolute inset-x-0 bottom-0 p-5">
           <CategoryTag article={article} light />
-          <h3 className={cn("headline mt-1.5 text-xl text-ivory sm:text-2xl", headlineFont)}>
+          <h3 className={cn("headline mt-1.5 text-xl text-ivory sm:text-2xl")}>
             <Link href={href}>{article.title}</Link>
           </h3>
           <Meta article={article} light className="mt-2" />
@@ -125,7 +122,7 @@ export default function ArticleCard({
 
   if (variant === "compact") {
     return (
-      <article {...dirProps} className={cn("group flex gap-3.5", rtl && "font-urdu", className)}>
+      <article className={cn("group flex gap-3.5", className)}>
         <div className="relative h-[76px] w-[104px] shrink-0 overflow-hidden bg-surface-2 sm:h-[88px] sm:w-[124px]">
           <SmartImage
             src={image}
@@ -137,7 +134,7 @@ export default function ArticleCard({
         </div>
         <div className="min-w-0 self-center">
           <CategoryTag article={article} className="text-[9px]" />
-          <h3 className={cn("mt-1 font-display text-[15px] font-semibold leading-snug tracking-tight", headlineFont)}>
+          <h3 className={cn("mt-1 font-display text-[15px] font-semibold leading-snug tracking-tight")}>
             <Link href={href} className="transition-colors hover:text-gold">
               {article.title}
             </Link>
@@ -150,13 +147,13 @@ export default function ArticleCard({
 
   if (variant === "ranked") {
     return (
-      <article {...dirProps} className={cn("group flex items-start gap-3.5 border-b border-line-dark pb-4", rtl && "font-urdu", className)}>
+      <article className={cn("group flex items-start gap-3.5 border-b border-line-dark pb-4", className)}>
         <span className="mt-0.5 w-7 shrink-0 font-display text-2xl leading-none text-gold">
           {String(index + 1).padStart(2, "0")}
         </span>
         <div className="min-w-0">
           <CategoryTag article={article} className="text-[9px]" />
-          <h3 className={cn("mt-1 font-display text-[15px] font-semibold leading-snug", headlineFont)}>
+          <h3 className={cn("mt-1 font-display text-[15px] font-semibold leading-snug")}>
             <Link href={href} className="transition-colors hover:text-gold">
               {article.title}
             </Link>
@@ -169,7 +166,7 @@ export default function ArticleCard({
 
   if (variant === "horizontal") {
     return (
-      <article {...dirProps} className={cn("group grid gap-4 sm:grid-cols-[1.1fr_1fr] sm:items-center", rtl && "font-urdu", className)}>
+      <article className={cn("group grid gap-4 sm:grid-cols-[1.1fr_1fr] sm:items-center", className)}>
         <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
           <SmartImage
             src={image}
@@ -181,7 +178,7 @@ export default function ArticleCard({
         </div>
         <div>
           <CategoryTag article={article} />
-          <h3 className={cn("headline mt-1.5 text-2xl sm:text-[26px]", headlineFont)}>
+          <h3 className={cn("headline mt-1.5 text-2xl sm:text-[26px]")}>
             <Link href={href}>{article.title}</Link>
           </h3>
           {article.excerpt && (
@@ -196,7 +193,7 @@ export default function ArticleCard({
   }
 
   return (
-    <article {...dirProps} className={cn("group flex flex-col", rtl && "font-urdu", className)}>
+    <article className={cn("group flex flex-col", className)}>
       <div className="relative aspect-[16/10] overflow-hidden bg-surface-2">
         <SmartImage
           src={image}
@@ -214,7 +211,7 @@ export default function ArticleCard({
       </div>
       <div className="flex flex-1 flex-col pt-3.5">
         <CategoryTag article={article} />
-        <h3 className={cn("headline mt-1.5 text-xl leading-tight sm:text-[22px]", headlineFont)}>
+        <h3 className={cn("headline mt-1.5 text-xl leading-tight sm:text-[22px]")}>
           <Link href={href}>{article.title}</Link>
         </h3>
         {showExcerpt && article.excerpt && (

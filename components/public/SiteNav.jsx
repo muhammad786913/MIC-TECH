@@ -52,9 +52,6 @@ export default function SiteNav({ categories = [], user = null }) {
               Sections
             </button>
             <div className="flex items-center gap-5">
-              <Link href="/urdu" className="font-urdu text-sm leading-none">
-                اردو
-              </Link>
               <Link href="/search" aria-label="Search" className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em]">
                 <Icon name="search" size={15} /> Search
               </Link>
@@ -62,9 +59,6 @@ export default function SiteNav({ categories = [], user = null }) {
           </div>
 
           <div className="hidden items-center gap-5 lg:flex">
-            <Link href="/urdu" className="flex items-center gap-1.5 border-l border-line-dark pl-5 font-urdu text-sm leading-none transition-colors hover:text-gold">
-              اردو
-            </Link>
             <Link href="/search" className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.12em] transition-colors hover:text-gold">
               <Icon name="search" size={14} /> Search
             </Link>
@@ -118,7 +112,6 @@ export default function SiteNav({ categories = [], user = null }) {
             <div className="px-5 pb-5">
               <p className="kicker mb-3">MIC TECH</p>
               <div className="flex flex-col gap-3 text-sm">
-                <Link href="/urdu" className="font-urdu text-lg">اردو ڈیسک</Link>
                 <Link href="/about">About MIC TECH</Link>
                 <Link href="/editorial-policy">Editorial standards</Link>
                 <Link href="/contact">Contact the newsroom</Link>

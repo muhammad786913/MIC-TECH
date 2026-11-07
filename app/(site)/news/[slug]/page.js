@@ -78,7 +78,6 @@ export default async function ArticlePage({ params }) {
     : engagement;
 
   const path = articlePath(article);
-  const isRtl = article.language === "ur";
   const canonical = article.seo?.canonical || path;
   const commentsCount = engagement.comments || comments.length;
   const approvedComments = commentsCount;
@@ -128,26 +127,15 @@ export default async function ArticlePage({ params }) {
                 Sponsored
               </span>
             ) : null}
-            {isRtl ? (
-              <span className="border border-line-dark px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-ivory/55">
-                اردو
-              </span>
-            ) : null}
           </div>
 
-          <h1
-            dir={isRtl ? "rtl" : undefined}
-            lang={isRtl ? "ur" : undefined}
-            className={`mt-4 text-[clamp(2rem,4.6vw,3.7rem)] leading-[1.06] ${isRtl ? "font-urdu text-right leading-[1.9]" : "headline"}`}
-          >
+          <h1 className="headline">
             {article.title}
           </h1>
 
           {article.subtitle ? (
             <p
-              dir={isRtl ? "rtl" : undefined}
-              lang={isRtl ? "ur" : undefined}
-              className={`mt-4 max-w-3xl font-body text-[clamp(1.05rem,1.7vw,1.35rem)] leading-relaxed text-ivory/70 ${isRtl ? "text-right font-urdu leading-[2.1]" : ""}`}
+                className="mt-4 max-w-3xl font-body text-[clamp(1.05rem,1.7vw,1.35rem)] leading-relaxed text-ivory/70"
             >
               {article.subtitle}
             </p>
@@ -198,11 +186,7 @@ export default async function ArticlePage({ params }) {
             </div>
           </aside>
 
-          <article
-            dir={isRtl ? "rtl" : undefined}
-            lang={isRtl ? "ur" : undefined}
-            className={isRtl ? "font-urdu text-right leading-[2.2]" : ""}
-          >
+          <article>
             <div className="lg:hidden">
               <ShareRail url={canonical} title={article.title} articleId={article._id} path={path} />
             </div>

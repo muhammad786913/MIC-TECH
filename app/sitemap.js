@@ -7,7 +7,6 @@ export const dynamic = "force-dynamic";
 const STATIC_PATHS = [
   { path: "/", priority: 1, changeFrequency: "hourly" },
   { path: "/search", priority: 0.4, changeFrequency: "weekly" },
-  { path: "/urdu", priority: 0.7, changeFrequency: "daily" },
   { path: "/about", priority: 0.4, changeFrequency: "monthly" },
   { path: "/contact", priority: 0.4, changeFrequency: "monthly" },
   { path: "/privacy", priority: 0.3, changeFrequency: "yearly" },

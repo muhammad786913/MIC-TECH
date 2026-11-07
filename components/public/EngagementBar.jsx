@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 
 export default function EngagementBar({
@@ -11,7 +10,6 @@ export default function EngagementBar({
   initial = {},
   signedIn = false,
 }) {
-  const router = useRouter();
   const [likes, setLikes] = useState(Number(initial.likes || 0));
   const [bookmarks, setBookmarks] = useState(Number(initial.bookmarks || 0));
   const [liked, setLiked] = useState(Boolean(initial.liked));
@@ -20,10 +18,6 @@ export default function EngagementBar({
   const [busy, setBusy] = useState("");
 
   async function toggle(action) {
-    if (!signedIn) {
-      router.push(`/login?next=${encodeURIComponent(path || "/")}`);
-      return;
-    }
     setBusy(action);
     setMessage("");
     try {
@@ -119,15 +113,6 @@ export default function EngagementBar({
         >
           <Icon name="comment" size={15} /> {Number(initial.comments || 0)} comments
         </a>
-
-        {!signedIn ? (
-          <span className="text-[11px] text-ivory/55">
-            <a href={`/login?next=${encodeURIComponent(path || "/")}`} className="link-gold">
-              Sign in
-            </a>{" "}
-            to like or save stories.
-          </span>
-        ) : null}
       </div>
       <p role="status" aria-live="polite" className="mt-2 min-h-4 text-xs text-ivory/55">
         {message}
