@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { listAdminArticles } from "@/lib/data/articles";
+import { listAdminArticles, deleteArticle } from "@/lib/data/articles";
 import { listCategories } from "@/lib/data/categories";
 import { buildMetadata } from "@/lib/seo";
 import { formatDate } from "@/lib/utils";
@@ -22,6 +22,17 @@ export default async function AdminArticlesPage({ searchParams }) {
   const q = String(query?.q || "").slice(0, 100);
   const category = String(query?.category || "");
   const page = Math.max(1, Number(query?.page) || 1);
+
+  async function handleDelete(id, title) {
+    if (!window.confirm(`Delete "${title}"? This will remove it from the public site.`)) return;
+    try {
+      await deleteArticle(id);
+      // Re-fetch by refreshing the page
+      window.location.reload();
+    } catch (error) {
+      alert("Could not delete the article: " + error.message);
+    }
+  }
 
   const [result, categories] = await Promise.all([
     listAdminArticles({ status, q, categorySlug: category, page, limit: 20 }),
@@ -102,6 +113,7 @@ export default async function AdminArticlesPage({ searchParams }) {
                     <div className="flex justify-end gap-2 text-[10px] font-semibold uppercase tracking-[0.1em]">
                       <Link href={`/admin/articles/${article._id}`} className="text-gold hover:text-ivory">Edit</Link>
                       <Link href={`/admin/articles/${article._id}/preview`} target="_blank" className="text-ivory/55 hover:text-ivory">Preview</Link>
+                      <button type="button" onClick={() => handleDelete(article._id, article.title)} className="text-red-400 hover:text-red-300">Delete</button>
                     </div>
                   </td>
                 </tr>

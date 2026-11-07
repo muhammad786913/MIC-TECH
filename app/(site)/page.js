@@ -33,7 +33,7 @@ async function safe(promise, fallback) {
 export default async function HomePage() {
   const [featured, latest, trending, categories, settings] = await Promise.all([
     safe(listPublished({ featured: true, limit: 8 }), { items: [] }),
-    safe(listPublished({ limit: 14 }), { items: [] }),
+    safe(listPublished({ limit: 16 }), { items: [] }),
     safe(getTrendingArticles(7, 6), []),
     safe(listCategories(), []),
     safe(getSettings(), null),
@@ -43,7 +43,7 @@ export default async function HomePage() {
   const lead = pool[0] || null;
   const heroSide = pool.slice(1, 4);
   const heroIds = new Set([lead?._id, ...heroSide.map((article) => article._id)].filter(Boolean));
-  const feed = latest.items.filter((article) => !heroIds.has(article._id)).slice(0, 6);
+  const feed = latest.items.filter((article) => !heroIds.has(article._id)).slice(0, 8);
 
   const desks = await Promise.all(
     DESK_SLUGS.map(async (slug) => {
