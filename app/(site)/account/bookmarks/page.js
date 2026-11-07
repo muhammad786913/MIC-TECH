@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/auth/guards";
 import { listBookmarks } from "@/lib/data/engagement";
 import { buildMetadata } from "@/lib/seo";
@@ -17,7 +16,30 @@ export const metadata = buildMetadata({
 
 export default async function BookmarksPage() {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
+  if (!user) {
+    return (
+      <div className="wrap py-9 lg:py-12">
+        <div className="mx-auto max-w-2xl">
+          <AccountNav active="/account/bookmarks" />
+          <header className="mt-7 border border-line-dark bg-surface p-8 text-center">
+            <p className="kicker">Your library</p>
+            <h1 className="mt-1 font-display text-3xl leading-tight">Sign in to view saved stories</h1>
+            <p className="mt-3 max-w-lg font-body text-lg leading-relaxed text-ivory/70">
+              Sign in to see your bookmarked stories. Public reading remains free for everyone.
+            </p>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <Link href="/login" className="btn-gold inline-flex">
+                Sign in
+              </Link>
+              <Link href="/signup" className="btn-outline inline-flex">
+                Create account
+              </Link>
+            </div>
+          </header>
+        </div>
+      </div>
+    );
+  }
   const bookmarks = await listBookmarks(user._id).catch(() => []);
 
   return (
