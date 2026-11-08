@@ -7,19 +7,12 @@ import { NextResponse } from "next/server";
  * - Security headers (CSP, HSTS, X-Frame-Options, etc.) applied to every response.
  * - Maintenance gate via env `MAINTENANCE_MODE=true` (edge) and/or DB setting.
  * - Admin presence gate redirects unauthenticated /admin* to /admin/login.
- * - Cloudflare compatibility: trusts cf-connecting-ip, logs CF-Ray, allows
- *   Turnstile challenge domains in CSP, sends WAF-friendly headers.
+ * - Cloudflare compatibility: trusts cf-connecting-ip, logs CF-Ray, sends WAF-friendly headers.
  */
 
 const SESSION_COOKIE = "mic_session";
 const MAINTENANCE_PATHS = ["/maintenance"];
 const PUBLIC_FILE = /\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml|webmanifest|woff2?)$/i;
-
-// Cloudflare Turnstile domains allowed in CSP for the widget script.
-const TURNSTILE_DOMAINS = [
-  "https://challenges.cloudflare.com",
-  "https://cloudflareinsights.com",
-];
 
 function isMaintenance() {
   return String(process.env.MAINTENANCE_MODE || "").toLowerCase() === "true";
@@ -32,17 +25,16 @@ function securityHeaders(response, request) {
   // Build CSP directives as key-value pairs to avoid duplicates.
   const cspDirectives = {
     "default-src": ["'self'"],
-    "script-src": ["'self'", "'unsafe-inline'", ...TURNSTILE_DOMAINS],
+    "script-src": ["'self'", "'unsafe-inline'"],
     "style-src": ["'self'", "'unsafe-inline'"],
     "img-src": ["'self'", "data:", "blob:", "https:"],
     "font-src": ["'self'", "data:"],
-    "connect-src": ["'self'", "https://challenges.cloudflare.com"],
+    "connect-src": ["'self'"],
     "media-src": ["'self'", "https:"],
     "frame-src": [
       "https://www.youtube.com",
       "https://www.youtube-nocookie.com",
       "https://player.vimeo.com",
-      "https://challenges.cloudflare.com",
     ],
     "worker-src": ["'self'", "blob:"],
     "object-src": ["'none'"],

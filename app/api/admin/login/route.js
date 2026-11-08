@@ -3,7 +3,6 @@ import { verifyTotp } from "@/lib/auth/totp";
 import { setSessionCookie } from "@/lib/auth/session";
 import { writeAudit } from "@/lib/audit";
 import { fail, guardMutation, handleError, json, limit, readJson } from "@/lib/api";
-import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -12,14 +11,6 @@ export async function POST(request) {
     guardMutation(request);
     limit(request, "admin-login", { max: 8, windowMs: 15 * 60_000 });
     const payload = await readJson(request);
-
-    // Bot protection via Cloudflare Turnstile.
-    const turnstile = await verifyTurnstile(payload.turnstileToken, request);
-    if (!turnstile.success) {
-      return fail("Bot verification failed. Please try again.", 403, {
-        turnstile: turnstile.error,
-      });
-    }
 
     const user = await authenticateUser({
       identifier: payload.email || payload.identifier,

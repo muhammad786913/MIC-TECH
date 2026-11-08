@@ -5,7 +5,6 @@ import { config } from "@/lib/config";
 import { absoluteUrl } from "@/lib/utils";
 import { fail, guardMutation, handleError, json, limit, readJson } from "@/lib/api";
 import { writeAudit } from "@/lib/audit";
-import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -14,14 +13,6 @@ export async function POST(request) {
     guardMutation(request);
     limit(request, "signup", { max: 6, windowMs: 60 * 60_000 });
     const payload = await readJson(request);
-
-    // Bot protection via Cloudflare Turnstile.
-    const turnstile = await verifyTurnstile(payload.turnstileToken, request);
-    if (!turnstile.success) {
-      return fail("Bot verification failed. Please try again.", 403, {
-        turnstile: turnstile.error,
-      });
-    }
 
     const { user, verificationToken } = await createUser({
       name: payload.name,

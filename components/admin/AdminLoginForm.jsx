@@ -2,12 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Turnstile } from "@/components/ui/Turnstile";
-import { cloudflarePublic } from "@/lib/config";
 
 export default function AdminLoginForm() {
   const router = useRouter();
-  const [form, setForm] = useState({ email: "", password: "", code: "", turnstileToken: "" });
+  const [form, setForm] = useState({ email: "", password: "", code: "" });
   const [needsMfa, setNeedsMfa] = useState(false);
   const [state, setState] = useState({ status: "idle", message: "" });
 
@@ -22,7 +20,6 @@ export default function AdminLoginForm() {
           email: form.email,
           password: form.password,
           code: needsMfa ? form.code : undefined,
-          turnstileToken: form.turnstileToken,
         }),
         credentials: "same-origin",
       });
@@ -66,10 +63,6 @@ export default function AdminLoginForm() {
           onChange={(event) => setForm({ ...form, password: event.target.value })}
         />
       </div>
-      <Turnstile
-        siteKey={cloudflarePublic.turnstileSiteKey}
-        onVerify={(token) => setForm({ ...form, turnstileToken: token })}
-      />
       {needsMfa ? (
         <div>
           <label htmlFor="admin-code" className="field-label">Authenticator code</label>

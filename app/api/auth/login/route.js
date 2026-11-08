@@ -2,7 +2,6 @@ import { authenticateUser } from "@/lib/data/users";
 import { setSessionCookie } from "@/lib/auth/session";
 import { guardMutation, fail, handleError, json, limit, readJson } from "@/lib/api";
 import { writeAudit } from "@/lib/audit";
-import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
@@ -11,14 +10,6 @@ export async function POST(request) {
     guardMutation(request);
     limit(request, "login", { max: 10, windowMs: 15 * 60_000 });
     const payload = await readJson(request);
-
-    // Bot protection via Cloudflare Turnstile.
-    const turnstile = await verifyTurnstile(payload.turnstileToken, request);
-    if (!turnstile.success) {
-      return fail("Bot verification failed. Please try again.", 403, {
-        turnstile: turnstile.error,
-      });
-    }
 
     const user = await authenticateUser({
       identifier: payload.identifier || payload.email,

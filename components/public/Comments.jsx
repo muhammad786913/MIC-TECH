@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import Icon from "@/components/ui/Icon";
-import { Turnstile } from "@/components/ui/Turnstile";
-import { cloudflarePublic } from "@/lib/config";
 import { timeAgo } from "@/lib/utils";
 
 function Avatar({ name }) {
@@ -22,7 +20,6 @@ function Avatar({ name }) {
 
 function CommentForm({ articleId, parentId = null, onPosted, onCancel, autoFocus = false }) {
   const [body, setBody] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState("");
   const [state, setState] = useState({ status: "idle", message: "" });
 
   async function submit(event) {
@@ -33,13 +30,12 @@ function CommentForm({ articleId, parentId = null, onPosted, onCancel, autoFocus
       const response = await fetch("/api/comments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ articleId, body, parentId, turnstileToken }),
+        body: JSON.stringify({ articleId, body, parentId }),
         credentials: "same-origin",
       });
       const data = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(data.error || "Could not post your comment.");
       setBody("");
-      setTurnstileToken("");
       onPosted?.(data.comment, data.status, parentId);
       setState({
         status: "done",
@@ -69,10 +65,6 @@ function CommentForm({ articleId, parentId = null, onPosted, onCancel, autoFocus
         autoFocus={autoFocus}
         placeholder={parentId ? "Write a reply…" : "Join the conversation. Keep it civil and on topic."}
         className="input resize-y"
-      />
-      <Turnstile
-        siteKey={cloudflarePublic.turnstileSiteKey}
-        onVerify={(token) => setTurnstileToken(token)}
       />
       <div className="mt-2 flex flex-wrap items-center gap-3">
         <button type="submit" disabled={state.status === "loading"} className="btn-dark disabled:opacity-60">

@@ -295,4 +295,38 @@ env vars so local development continues to work without Cloudflare credentials.
 Turnstile site creation, R2 bucket (optional), DNS orange-cloud, Vercel env vars,
 redeploy, WAF rules, cache rules, live verification.
 
+---
+
+## MIC-007 - Remove Turnstile bot verification from auth/comment forms (2026-11-09)
+
+**Status:** DONE
+
+**Objective:** The Login/Signup typing glitch persisted after callback stabilisation. Removed the
+Cloudflare Turnstile widget and its server-side verification from all public/admin forms so no
+third-party iframe or DOM mutation can interfere with controlled inputs. Existing rate limits,
+CSRF/origin checks, password hashing, MFA and sessions remain in place.
+
+**Done:**
+1. Removed `Turnstile` widget and `turnstileToken` from Login, Signup, Forgot, Admin Login forms.
+2. Removed `verifyTurnstile` checks/imports from auth, admin-login and comment API routes.
+3. Removed `components/ui/Turnstile.jsx` and `lib/turnstile.js`.
+4. Cleaned Turnstile config from `lib/cloudflare.js`, `lib/config.js`, `middleware.js`,
+   `app/api/health/cloudflare/route.js`, `.env.example`, `scripts/validate-cloudflare.mjs`.
+5. Preserved Cloudflare R2 media storage and proxy compatibility intact.
+6. Verified typing/deletion/cursor movement in real browser (localhost:3000/login) — input value
+   and selection remain stable across keystrokes, mid-insert, mid-delete and rapid bursts.
+7. `npm run lint` → 0 errors (1 pre-existing SmartImage warning).
+8. `npm run build` → success; all 34 pages compile.
+9. Committed and pushed to `origin/main`.
+
+**Files changed:** `components/auth/LoginForm.jsx`, `components/auth/SignupForm.jsx`,
+`components/auth/ForgotForm.jsx`, `components/admin/AdminLoginForm.jsx`,
+`components/public/Comments.jsx`, `app/api/auth/login/route.js`,
+`app/api/auth/signup/route.js`, `app/api/auth/forgot/route.js`,
+`app/api/admin/login/route.js`, `app/api/comments/route.js`,
+`app/api/health/cloudflare/route.js`, `lib/cloudflare.js`, `lib/config.js`,
+`middleware.js`, `.env.example`, `scripts/validate-cloudflare.mjs`.
+**Deleted:** `components/ui/Turnstile.jsx`, `lib/turnstile.js`.
+
+
 

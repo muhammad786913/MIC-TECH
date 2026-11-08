@@ -1,17 +1,12 @@
 ﻿"use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Turnstile } from "@/components/ui/Turnstile";
-import { cloudflarePublic } from "@/lib/config";
 
 export default function SignupForm() {
   const router = useRouter();
-  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "", turnstileToken: "" });
+  const [form, setForm] = useState({ name: "", email: "", password: "", confirm: "" });
   const [state, setState] = useState({ status: "idle", message: "", devLink: "" });
-  const onVerify = useCallback((token) => {
-      setForm(prevForm => ({ ...prevForm, turnstileToken: token }));
-    }, []);
 
   async function submit(event) {
     event.preventDefault();
@@ -28,7 +23,6 @@ export default function SignupForm() {
           name: form.name,
           email: form.email,
           password: form.password,
-          turnstileToken: form.turnstileToken,
         }),
         credentials: "same-origin",
       });
@@ -76,7 +70,10 @@ export default function SignupForm() {
           minLength={2}
           maxLength={60}
           value={form.name}
-          onChange={(event) => setForm(prevForm => ({ ...prevForm, name: event.target.value }))}
+          onChange={(event) => {
+            const name = event.target.value;
+            setForm((prev) => ({ ...prev, name }));
+          }}
           className="input"
         />
       </div>
@@ -88,7 +85,10 @@ export default function SignupForm() {
           autoComplete="email"
           required
           value={form.email}
-          onChange={(event) => setForm(prevForm => ({ ...prevForm, email: event.target.value }))}
+          onChange={(event) => {
+            const email = event.target.value;
+            setForm((prev) => ({ ...prev, email }));
+          }}
           className="input"
         />
       </div>
@@ -103,7 +103,10 @@ export default function SignupForm() {
             minLength={10}
             maxLength={128}
             value={form.password}
-            onChange={(event) => setForm(prevForm => ({ ...prevForm, password: event.target.value }))}
+            onChange={(event) => {
+              const password = event.target.value;
+              setForm((prev) => ({ ...prev, password }));
+            }}
             className="input"
           />
         </div>
@@ -117,16 +120,15 @@ export default function SignupForm() {
             minLength={10}
             maxLength={128}
             value={form.confirm}
-            onChange={(event) => setForm(prevForm => ({ ...prevForm, confirm: event.target.value }))}
+            onChange={(event) => {
+              const confirm = event.target.value;
+              setForm((prev) => ({ ...prev, confirm }));
+            }}
             className="input"
           />
         </div>
       </div>
       <p className="text-[11px] text-ivory/55">At least 10 characters, including a letter and a number.</p>
-      <Turnstile
-        siteKey={cloudflarePublic.turnstileSiteKey}
-        onVerify={onVerify}
-      />
       {state.message ? (
         <p role="alert" className="border border-red-500/30 bg-red-900/10 p-2.5 text-xs text-red-400">
           {state.message}

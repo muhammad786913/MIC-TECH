@@ -1,9 +1,7 @@
 ﻿"use client";
 
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Turnstile } from "@/components/ui/Turnstile";
-import { cloudflarePublic } from "@/lib/config";
 
 function safeNext(value) {
   const next = String(value || "");
@@ -14,11 +12,8 @@ export default function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
   const next = safeNext(params.get("next"));
-  const [form, setForm] = useState({ identifier: "", password: "", turnstileToken: "" });
+  const [form, setForm] = useState({ identifier: "", password: "" });
   const [state, setState] = useState({ status: "idle", message: "" });
-  const onVerify = useCallback((token) => {
-      setForm(prevForm => ({ ...prevForm, turnstileToken: token }));
-    }, []);
 
   async function submit(event) {
     event.preventDefault();
@@ -49,7 +44,10 @@ export default function LoginForm() {
           autoComplete="username"
           required
           value={form.identifier}
-          onChange={(event) => setForm(prevForm => ({ ...prevForm, identifier: event.target.value }))}
+          onChange={(event) => {
+            const identifier = event.target.value;
+            setForm((prev) => ({ ...prev, identifier }));
+          }}
           className="input"
         />
       </div>
@@ -67,14 +65,13 @@ export default function LoginForm() {
           autoComplete="current-password"
           required
           value={form.password}
-          onChange={(event) => setForm(prevForm => ({ ...prevForm, password: event.target.value }))}
+          onChange={(event) => {
+            const password = event.target.value;
+            setForm((prev) => ({ ...prev, password }));
+          }}
           className="input"
         />
       </div>
-      <Turnstile
-        siteKey={cloudflarePublic.turnstileSiteKey}
-        onVerify={onVerify}
-      />
       {state.message ? (
         <p role="alert" className="border border-red-500/30 bg-red-900/10 p-2.5 text-xs text-red-400">
           {state.message}

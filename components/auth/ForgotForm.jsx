@@ -1,12 +1,9 @@
 ﻿"use client";
 
 import { useState } from "react";
-import { Turnstile } from "@/components/ui/Turnstile";
-import { cloudflarePublic } from "@/lib/config";
 
 export default function ForgotForm() {
   const [email, setEmail] = useState("");
-  const [turnstileToken, setTurnstileToken] = useState("");
   const [state, setState] = useState({ status: "idle", message: "", devLink: "" });
 
   async function submit(event) {
@@ -16,7 +13,7 @@ export default function ForgotForm() {
       const response = await fetch("/api/auth/forgot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, turnstileToken }),
+        body: JSON.stringify({ email }),
         credentials: "same-origin",
       });
       const data = await response.json().catch(() => ({}));
@@ -41,10 +38,6 @@ export default function ForgotForm() {
           className="input"
         />
       </div>
-      <Turnstile
-        siteKey={cloudflarePublic.turnstileSiteKey}
-        onVerify={(token) => setTurnstileToken(token)}
-      />
       {state.message ? (
         <div className={state.status === "error" ? "border border-red-500/30 bg-red-900/10 p-3 text-xs text-red-400" : "border border-gold/40 bg-surface-2/60 p-3 text-xs text-ivory/70"}>
           <p>{state.message}</p>

@@ -41,27 +41,6 @@ const errors = [];
 const warnings = [];
 const info = [];
 
-// --- Turnstile checks ---
-const secretKey = env.CLOUDFLARE_TURNSTILE_SECRET_KEY || "";
-const siteKey = env.CLOUDFLARE_TURNSTILE_SITE_KEY || "";
-const publicSiteKey = env.NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY || "";
-
-if (secretKey && siteKey) {
-  info.push("[OK] Turnstile: both secret key and site key are configured.");
-} else if (secretKey || siteKey) {
-  errors.push("[FAIL] Turnstile: only one of secret key / site key is set. Both are required.");
-} else if (isProd) {
-  errors.push("[FAIL] Turnstile: not configured in production. Bot protection will fail closed.");
-} else {
-  warnings.push("[INFO] Turnstile: not configured. Dev mode will auto-bypass verification.");
-}
-
-if (siteKey && publicSiteKey && siteKey !== publicSiteKey) {
-  errors.push("[FAIL] Turnstile: CLOUDFLARE_TURNSTILE_SITE_KEY and NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY do not match.");
-} else if (siteKey && !publicSiteKey) {
-  errors.push("[FAIL] Turnstile: NEXT_PUBLIC_CLOUDFLARE_TURNSTILE_SITE_KEY is missing (needed by client components).");
-}
-
 // --- R2 checks ---
 const r2AccountId = env.CLOUDFLARE_R2_ACCOUNT_ID || "";
 const r2AccessKeyId = env.CLOUDFLARE_R2_ACCESS_KEY_ID || "";
